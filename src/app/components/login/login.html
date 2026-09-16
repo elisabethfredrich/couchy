@@ -1,0 +1,63 @@
+<div class="flex min-h-dvh flex-col items-center justify-center gap-12 bg-[var(--isabelline)] px-4">
+  <img src="/logo_full.svg" alt="Couchy Logo" class="h-30 w-auto" />
+
+  <div class="w-full max-w-md">
+    <div class="rounded-2xl bg-white p-8 shadow-xl">
+      <div class="mb-8 text-center">
+        <h1 class="text-3xl font-bold text-[var(--space-cadet)]">Willkommen zurück</h1>
+
+        <p class="mt-2 text-[var(--ultra-violet)]">Melde dich an, um fortzufahren.</p>
+      </div>
+
+      <form (ngSubmit)="handleLogin()" class="space-y-6">
+        <div>
+          <label for="username" class="mb-2 block text-sm font-medium text-[var(--space-cadet)]">
+            Nutzername oder E-Mail
+          </label>
+
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            placeholder="Nutzername oder E-Mail"
+            class="w-full rounded-lg border border-[var(--rose-quartz)] bg-[var(--isabelline)] px-4 py-3 text-[var(--space-cadet)] outline-none transition placeholder:text-[var(--rose-quartz)] focus:border-[var(--ultra-violet)] focus:ring-2 focus:ring-[var(--pale-dogwood)]"
+          />
+        </div>
+
+        <div>
+          <label for="password" class="mb-2 block text-sm font-medium text-[var(--space-cadet)]">
+            Passwort
+          </label>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Passwort"
+            class="w-full rounded-lg border border-[var(--rose-quartz)] bg-[var(--isabelline)] px-4 py-3 text-[var(--space-cadet)] outline-none transition placeholder:text-[var(--rose-quartz)] focus:border-[var(--ultra-violet)] focus:ring-2 focus:ring-[var(--pale-dogwood)]"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-[var(--space-cadet)] px-4 py-3 font-semibold text-white transition hover:bg-[var(--ultra-violet)] focus:outline-none focus:ring-2 focus:ring-[var(--rose-quartz)] focus:ring-offset-2"
+        >
+          Anmelden
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm text-[var(--ultra-violet)]">
+        Noch kein Konto?
+
+        <a
+          routerLink="/register"
+          class="ml-1 font-semibold text-[var(--space-cadet)] underline decoration-[var(--pale-dogwood)] decoration-2 underline-offset-4 transition hover:text-[var(--rose-quartz)]"
+        >
+          Jetzt registrieren
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

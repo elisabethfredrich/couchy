@@ -1,0 +1,55 @@
+<header class="flex h-[120px] items-start justify-between px-4 pt-4 sm:px-6">
+  <a routerLink="/home">
+    <picture>
+      <source media="(max-width: 639px)" srcset="/base_logo.svg" />
+      <img src="/logo_full.svg" alt="Couchy Logo" class="h-20 w-auto" />
+    </picture>
+  </a>
+  <!-- Profile Menu -->
+  <div class="relative">
+      <button
+        type="button"
+        (click)="toggleProfileMenu()"
+        class="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--space-cadet)] text-white transition hover:bg-[var(--ultra-violet)] focus:outline-none focus:ring-2 focus:ring-[var(--rose-quartz)] focus:ring-offset-2 cursor-pointer"
+        aria-label="Profilmenü öffnen"
+        aria-haspopup="true"
+        [attr.aria-expanded]="profileMenuOpen"
+      >
+        @if (currentUser$ | async; as user) {
+          <img
+            [src]="user.account_data.profile.usrIMG"
+            [alt]="user.account_data.username"
+            class="h-11 w-11 rounded-full object-cover"
+          />
+        } @else {
+          <span class="material-symbols-rounded">person</span>
+        }
+      </button>
+
+      <!-- Dropdown -->
+      @if (profileMenuOpen) {
+        <div
+          class="absolute right-0 z-10 mt-2 w-52 origin-top-right overflow-hidden rounded-xl bg-white py-1 shadow-lg ring-1 ring-black/5"
+        >
+          <button
+            type="button"
+            class="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-[var(--space-cadet)] transition hover:bg-[var(--isabelline)]"
+          >
+            <span class="material-symbols-rounded text-[var(--ultra-violet)]"> settings </span>
+
+            Profileinstellungen
+          </button>
+
+          <button
+            type="button"
+            (click)="handleLogout()"
+            class="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-[var(--space-cadet)] transition hover:bg-[var(--isabelline)]"
+          >
+            <span class="material-symbols-rounded text-[var(--ultra-violet)]"> logout </span>
+
+            Abmelden
+          </button>
+        </div>
+      }
+  </div>
+</header>

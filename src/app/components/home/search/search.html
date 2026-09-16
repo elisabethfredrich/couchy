@@ -1,0 +1,145 @@
+<section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-[var(--pale-dogwood)]">
+  <h2 class="text-xl font-bold text-[var(--space-cadet)]">Angebote suchen</h2>
+  <p class="mt-1 text-sm text-[var(--ultra-violet)]">
+    Suche nach Angeboten in einer bestimmten Stadt.
+  </p>
+  <form class="mt-4 flex flex-col gap-3 sm:flex-row" (ngSubmit)="handleSearch()">
+    <!-- Stadt -->
+    <div class="relative flex-1">
+      <span
+        class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-xl text-[var(--rose-quartz)]"
+      >
+        location_on
+      </span>
+      <input
+        type="text"
+        name="city"
+        [(ngModel)]="searchCity"
+        placeholder="Stadt eingeben"
+        autocomplete="address-level2"
+        class="w-full rounded-xl border border-[var(--pale-dogwood)] bg-[var(--isabelline)] py-3 pl-10 pr-4 text-[var(--space-cadet)] outline-none transition placeholder:text-[var(--rose-quartz)] focus:border-[var(--ultra-violet)]"
+      />
+    </div>
+    <!-- Suchen -->
+    <button
+      type="submit"
+      class="flex items-center justify-center gap-2 rounded-xl bg-[var(--space-cadet)] px-5 py-3 font-semibold text-[var(--isabelline)] transition hover:bg-[var(--ultra-violet)] active:scale-[0.98]"
+    >
+      <span class="material-symbols-rounded text-xl"> search </span> Suchen
+    </button>
+  </form>
+</section>
+<!-- Suchergebnisse -->
+@if (hasSearched) {
+  <section class="mt-6">
+    <!-- Ergebnisse vorhanden -->
+    @if (paginatedResults.length > 0) {
+      <div class="mb-3">
+        <p class="text-sm text-[var(--ultra-violet)]">
+          {{ results.length }} {{ results.length === 1 ? 'Angebot' : 'Angebote' }} in
+          <span class="font-semibold text-[var(--space-cadet)]"> {{ searchedCity }} </span>
+        </p>
+      </div>
+      <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[var(--pale-dogwood)]">
+        <div class="divide-y divide-[var(--pale-dogwood)]">
+          @for (result of paginatedResults; track result.offer.uri) {
+            <a
+              [routerLink]="['/details']"
+              [queryParams]="{ offer: result.offer.uri }"
+              class="flex gap-4 p-4 transition-colors hover:bg-[var(--isabelline)]"
+            >
+              <!-- Profilbild -->
+              <img
+                [src]="result.user.account_data.profile.usrIMG"
+                [alt]="result.user.account_data.username"
+                class="h-16 w-16 shrink-0 rounded-full object-cover ring-2 ring-[var(--pale-dogwood)]"
+              />
+              <!-- Benutzerinformationen -->
+              <div class="min-w-0 flex-1">
+                <!-- Username + Stadt -->
+                <div class="flex min-w-0 items-center gap-2">
+                  <h2
+                    class="truncate font-semibold text-[var(--space-cadet)]"
+                    [title]="result.user.account_data.username"
+                  >
+                    {{ result.user.account_data.username }}
+                  </h2>
+                  <span class="shrink-0 text-[var(--rose-quartz)]"> · </span>
+                  <span
+                    class="truncate text-sm text-[var(--ultra-violet)]"
+                    [title]="result.user.account_data.address.city"
+                  >
+                    {{ result.user.account_data.address.city }}
+                  </span>
+                </div>
+                <!-- Bio -->
+                <p
+                  class="mt-1 truncate text-sm text-[var(--rose-quartz)]"
+                  [title]="result.user.account_data.profile.bio"
+                >
+                  {{ result.user.account_data.profile.bio }}
+                </p>
+                <!-- Angebot -->
+                <h3
+                  class="mt-2 truncate font-semibold text-[var(--space-cadet)]"
+                  [title]="result.offer.title"
+                >
+                  {{ result.offer.title }}
+                </h3>
+                <p
+                  class="mt-1 truncate text-sm text-[var(--ultra-violet)]"
+                  [title]="result.offer.desc"
+                >
+                  {{ result.offer.desc }}
+                </p>
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+      <!-- Pagination -->
+      @if (totalPages > 1) {
+        <div class="mt-4 flex items-center justify-between gap-3">
+          <!-- Zurück -->
+          <button
+            type="button"
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            class="flex items-center gap-1 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[var(--space-cadet)] ring-1 ring-[var(--pale-dogwood)] transition hover:bg-[var(--isabelline)] disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <span class="material-symbols-rounded text-xl"> chevron_left </span>
+            <span class="hidden sm:inline"> Zurück </span>
+          </button>
+          <!-- Seitenanzeige -->
+          <span class="text-center text-sm text-[var(--ultra-violet)]">
+            Seite
+            <span class="font-semibold text-[var(--space-cadet)]"> {{ currentPage }} </span> von
+            <span class="font-semibold text-[var(--space-cadet)]"> {{ totalPages }} </span>
+          </span>
+          <!-- Weiter -->
+          <button
+            type="button"
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            class="flex items-center gap-1 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[var(--space-cadet)] ring-1 ring-[var(--pale-dogwood)] transition hover:bg-[var(--isabelline)] disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <span class="hidden sm:inline"> Weiter </span>
+            <span class="material-symbols-rounded text-xl"> chevron_right </span>
+          </button>
+        </div>
+      }
+    } @else {
+      <!-- Keine Ergebnisse -->
+      <div class="rounded-2xl bg-white p-8 text-center shadow-sm ring-1 ring-[var(--pale-dogwood)]">
+        <span class="material-symbols-rounded text-4xl text-[var(--rose-quartz)]">
+          search_off
+        </span>
+        <p class="mt-3 font-semibold text-[var(--space-cadet)]">Keine Angebote gefunden</p>
+        <p class="mt-1 text-sm text-[var(--ultra-violet)]">
+          Für <span class="font-semibold"> {{ searchedCity }} </span> wurden keine passenden
+          Angebote gefunden.
+        </p>
+      </div>
+    }
+  </section>
+}

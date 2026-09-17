@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { UserDataService } from '../../../services/user-data-service';
 import { SearchResult } from '../../../models/user-data';
 import { SearchStateService } from '../../../services/search-state-service';
@@ -12,10 +12,10 @@ import { SearchStateService } from '../../../services/search-state-service';
 })
 export class Search {
   private dataService: UserDataService = inject(UserDataService);
-  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
   private searchState: SearchStateService = inject(SearchStateService);
+  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
-  // the current content of the input field
+  // The current content of the input field
   protected searchCity: string = '';
 
   // The city that was searched for when pressing submit
@@ -24,6 +24,7 @@ export class Search {
   protected results: SearchResult[] = [];
 
   protected currentPage: number = 1;
+
   private readonly resultsPerPage: number = 5;
 
   protected hasSearched: boolean = false;
@@ -88,7 +89,6 @@ export class Search {
     if (page < 1 || page > this.totalPages) {
       return;
     }
-
     this.currentPage = page;
     this.searchState.currentPage = page;
   }

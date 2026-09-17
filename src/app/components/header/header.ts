@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { UserDataService } from '../../services/user-data-service';
 import { AuthService } from '../../auth';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user-data';
 
 @Component({
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   selector: 'app-header',
   templateUrl: './header.html',
 })

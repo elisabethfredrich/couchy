@@ -12,10 +12,10 @@ Für die Entwicklung werden folgende Technologien und Pakete verwendet:
 - **TypeScript** – Programmiersprache
 - **Tailwind CSS** – Styling und responsive Layouts
 - **RxJS** – Verarbeitung asynchroner Daten und Observables
-- **Angular HttpClient** – Laden der lokalen JSON-Daten
 - **Material Symbols** – Icons
 - **Source Sans Pro** – verwendete Schriftart
-- **Node.js / npm** – Entwicklungsumgebung und Paketverwaltung
+- **Node.js 22.23.2** – Entwicklungsumgebung
+- **npm 10.9.8** – Paketverwaltung
 
 Die benötigten Abhängigkeiten sind in der `package.json` definiert.
 
